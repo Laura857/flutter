@@ -50,14 +50,19 @@ class characterState extends State<character> {
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
-                color: Colors.teal,
+                color: Colors.white54,
                 child: ListTile(
                   leading: (utilsateur.image == null)
-                      ? Container()
-                      : Image.network(
-                          utilsateur.image!,
-                          width: 20,
-                          height: 20,
+                      ? CircleAvatar(
+                          radius: 30.0,
+                          backgroundImage: NetworkImage(
+                              "https://firebasestorage.googleapis.com/v0/b/firstprojetimm.appspot.com/o/image_disponible.png?alt=media&token=809cfa6c-b1af-44e1-bd85-a12ae9ef0f39"),
+                          backgroundColor: Colors.transparent,
+                        )
+                      : CircleAvatar(
+                          radius: 30.0,
+                          backgroundImage: NetworkImage(utilsateur.image!),
+                          backgroundColor: Colors.transparent,
                         ),
                   title: Text("${utilsateur.prenom} ${utilsateur.nom}"),
                   subtitle: Text("${utilsateur.mail}"),
