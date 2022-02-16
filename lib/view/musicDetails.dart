@@ -56,7 +56,7 @@ class musicDetailsState extends State<musicDetails> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                    image: NetworkImage(widget.morceau.image_music!),
+                    image: NetworkImage(widget.morceau.image!),
                     fit: BoxFit.fill)),
           ),
         ),
