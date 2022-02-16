@@ -46,7 +46,7 @@ class afficherCarteState extends State<afficherCarte> {
   Widget build(BuildContext context) {
     return GoogleMap(
         initialCameraPosition: (maPosition == null)
-            ? CameraPosition(target: LatLng(48.858370, 2@@.294481), zoom: 14.0)
+            ? CameraPosition(target: LatLng(48.858370, 2.294481), zoom: 14.0)
             : CameraPosition(
                 target: LatLng(maPosition!.latitude, maPosition!.longitude),
                 zoom: 14.0),
