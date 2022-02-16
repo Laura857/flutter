@@ -3,7 +3,14 @@
 <plist version="1.0">
 <dict>
     <key>NSAppleMusicUsageDescription</key>
-    <string>musiqueYnov souhaite accéder à votre musique</string>
+    <string>L'application souhaite accéder à votre musique</string>
+
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>L'application souhaite accéder à votre localisation</string>
+
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>L'application souhaite accéder à votre localisation</string>
+
 
     <key>NSPhotoLibraryAddUsageDescription</key>
 	<string>L'application souhaite acceder à vos photos</string>

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:flutter_iim/controller/afficherCarte.dart';
 import 'package:flutter_iim/controller/allMorceaux.dart';
 import 'package:flutter_iim/controller/character.dart';
 
@@ -72,7 +73,7 @@ class dashboardState extends State<dashboard> {
       case 1:
         return character();
       case 2:
-        return Text("Afficher une carte");
+        return afficherCarte();
       default:
         return Text("Aucune info");
     }
