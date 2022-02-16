@@ -93,111 +93,111 @@ class addMorceauState extends State<addMorceau> {
               (progressIndicator > 0)
                   ? DotIndicator(
                       size: 20,
-                      color: Colors.green,
+                      color: Colors.blue,
                     )
                   : OutlinedDotIndicator(
                       size: 20,
-                      color: Colors.red,
+                      color: Colors.grey,
                     ),
               (progressIndicator > 0)
                   ? SizedBox(
                       height: 20.0,
                       width: MediaQuery.of(context).size.width / 6.5,
                       child: SolidLineConnector(
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                     )
                   : SizedBox(
                       height: 20.0,
                       width: MediaQuery.of(context).size.width / 6.5,
                       child: DashedLineConnector(
-                        color: Colors.red,
+                        color: Colors.grey,
                         dash: 1,
                       ),
                     ),
               (progressIndicator > 1)
                   ? DotIndicator(
                       size: 20,
-                      color: Colors.green,
+                      color: Colors.blue,
                     )
                   : OutlinedDotIndicator(
                       size: 20,
-                      color: Colors.red,
+                      color: Colors.grey,
                     ),
               (progressIndicator > 1)
                   ? SizedBox(
                       height: 20.0,
                       width: MediaQuery.of(context).size.width / 6.5,
                       child: SolidLineConnector(
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                     )
                   : SizedBox(
                       height: 20.0,
                       width: MediaQuery.of(context).size.width / 6.5,
                       child: DashedLineConnector(
-                        color: Colors.red,
+                        color: Colors.grey,
                         dash: 1,
                       ),
                     ),
               (progressIndicator > 2)
                   ? DotIndicator(
                       size: 20,
-                      color: Colors.green,
+                      color: Colors.blue,
                     )
                   : OutlinedDotIndicator(
                       size: 20,
-                      color: Colors.red,
+                      color: Colors.grey,
                     ),
               (progressIndicator > 2)
                   ? SizedBox(
                       height: 20.0,
                       width: MediaQuery.of(context).size.width / 6.5,
                       child: SolidLineConnector(
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                     )
                   : SizedBox(
                       height: 20.0,
                       width: MediaQuery.of(context).size.width / 6.5,
                       child: DashedLineConnector(
-                        color: Colors.red,
+                        color: Colors.grey,
                         dash: 1,
                       ),
                     ),
               (progressIndicator > 3)
                   ? DotIndicator(
                       size: 20,
-                      color: Colors.green,
+                      color: Colors.blue,
                     )
                   : OutlinedDotIndicator(
                       size: 20,
-                      color: Colors.red,
+                      color: Colors.grey,
                     ),
               (progressIndicator > 3)
                   ? SizedBox(
                       height: 20.0,
                       width: MediaQuery.of(context).size.width / 6.5,
                       child: SolidLineConnector(
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                     )
                   : SizedBox(
                       height: 20.0,
                       width: MediaQuery.of(context).size.width / 6.5,
                       child: DashedLineConnector(
-                        color: Colors.red,
+                        color: Colors.grey,
                         dash: 1,
                       ),
                     ),
               (progressIndicator > 4)
                   ? DotIndicator(
                       size: 20,
-                      color: Colors.green,
+                      color: Colors.blue,
                     )
                   : OutlinedDotIndicator(
                       size: 20,
-                      color: Colors.red,
+                      color: Colors.grey,
                     ),
             ],
           ),

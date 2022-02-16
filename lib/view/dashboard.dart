@@ -30,7 +30,7 @@ class dashboardState extends State<dashboard> {
         drawer: myDrawer(),
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Nouvelle page'),
+          title: Text('Dashboard'),
           actions: [
             IconButton(
                 onPressed: () {
@@ -44,9 +44,9 @@ class dashboardState extends State<dashboard> {
         ),
         body: bodyPage(currentIndex),
         bottomNavigationBar: DotNavigationBar(
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.white,
-            backgroundColor: Colors.amber,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.grey,
+            backgroundColor: Colors.blue,
             onTap: (int newValue) {
               setState(() {
                 currentIndex = newValue;
