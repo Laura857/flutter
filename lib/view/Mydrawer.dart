@@ -3,10 +3,11 @@ import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_iim/main.dart';
+import 'package:flutter_iim/view/dashboard.dart';
+import 'package:intl/intl.dart';
 import '../functions/firestoreHelper.dart';
 import '../model/Users.dart';
-//import 'package:date_format/date_format.dart';
 
 class myDrawer extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class myDrawerState extends State<myDrawer> {
   // Variable de la f
   String? identifiant;
   Users? utilisateur;
-  DateTime time = DateTime.now();
+  String time = DateFormat('dd-MM-yyyy').format(DateTime.now());
   String imageFileName = "";
   String imageFilePath = "";
   Uint8List? bytesImage;
@@ -135,11 +136,14 @@ class myDrawerState extends State<myDrawer> {
               height: 10,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "${utilisateur?.pseudo}",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
                 ),
                 IconButton(
                     onPressed: () {
@@ -151,38 +155,51 @@ class myDrawerState extends State<myDrawer> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Icon(Icons.mail),
-                Text("${utilisateur?.mail}"),
-              ],
-            ),
+            Text("Mail",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            Text(" ${utilisateur?.mail}"),
             SizedBox(
               height: 10,
             ),
-            Text("${utilisateur!.prenom}  ${utilisateur!.nom}"),
+            Text("Prénom",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            Text("${utilisateur!.prenom}"),
             SizedBox(
               height: 10,
             ),
+            Text("Nom",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            Text("${utilisateur!.nom}"),
+            SizedBox(
+              height: 10,
+            ),
+            Text("Date d'anniversaire",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
             (utilisateur!.dateNaissance == null)
-                ? Text(time.toString())
+                ? Text(time)
                 : Text(utilisateur!.dateNaissance!.toString()),
-            IconButton(
+            SizedBox(
+              height: 30,
+            ),
+            ElevatedButton(
                 onPressed: () {
                   FirestoreHelper().logoutUser();
-                  //chemein vers page principal
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return MyApp();
+                      }));
                 },
-                icon: Icon(
-                  Icons.exit_to_app_rounded,
-                )),
-            IconButton(
+                child: Text("Déconnexion")
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
                 onPressed: () {
                   BoxDelete();
                 },
-                icon: Icon(
-                  Icons.logout,
-                  color: Colors.red,
-                )),
+                child: Text("Supprimer le compte")
+            )
           ],
         ));
   }
