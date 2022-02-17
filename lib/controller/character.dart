@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iim/functions/firestoreHelper.dart';
 
 import '../model/Users.dart';
+import '../view/chat.dart';
 
 class character extends StatefulWidget {
   @override
@@ -46,28 +47,35 @@ class characterState extends State<character> {
               if (utilsateur.id == uid) {
                 return Container();
               }
-              return Card(
-                elevation: 5.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                color: Colors.white54,
-                child: ListTile(
-                  leading: (utilsateur.image == null)
-                      ? CircleAvatar(
-                          radius: 30.0,
-                          backgroundImage: NetworkImage(
-                              "https://firebasestorage.googleapis.com/v0/b/firstprojetimm.appspot.com/o/image_disponible.png?alt=media&token=809cfa6c-b1af-44e1-bd85-a12ae9ef0f39"),
-                          backgroundColor: Colors.transparent,
-                        )
-                      : CircleAvatar(
-                          radius: 30.0,
-                          backgroundImage: NetworkImage(utilsateur.image!),
-                          backgroundColor: Colors.transparent,
-                        ),
-                  title: Text("${utilsateur.prenom} ${utilsateur.nom}"),
-                  subtitle: Text("${utilsateur.mail}"),
-                ),
-              );
+              return InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return chat(utilsateur);
+                    }));
+                  },
+                  child: Card(
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    color: Colors.white54,
+                    child: ListTile(
+                      leading: (utilsateur.image == null)
+                          ? CircleAvatar(
+                              radius: 30.0,
+                              backgroundImage: NetworkImage(
+                                  "https://firebasestorage.googleapis.com/v0/b/firstprojetimm.appspot.com/o/image_disponible.png?alt=media&token=809cfa6c-b1af-44e1-bd85-a12ae9ef0f39"),
+                              backgroundColor: Colors.transparent,
+                            )
+                          : CircleAvatar(
+                              radius: 30.0,
+                              backgroundImage: NetworkImage(utilsateur.image!),
+                              backgroundColor: Colors.transparent,
+                            ),
+                      title: Text("${utilsateur.prenom} ${utilsateur.nom}"),
+                      subtitle: Text("${utilsateur.mail}"),
+                    ),
+                  ));
             });
       },
     );

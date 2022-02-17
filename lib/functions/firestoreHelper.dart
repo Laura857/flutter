@@ -10,6 +10,7 @@ class FirestoreHelper {
   final auth = FirebaseAuth.instance;
   final fire_user = FirebaseFirestore.instance.collection("Users");
   final fire_morceaux = FirebaseFirestore.instance.collection("Morceaux");
+  final fire_message = FirebaseFirestore.instance.collection("Message");
   final firestorage = FirebaseStorage.instance;
 
   //Méthode
@@ -40,6 +41,14 @@ class FirestoreHelper {
     fire_user.doc(uid).set(map);
   }
 
+  addMorceau(String uid,Map<String,dynamic> map){
+    fire_morceaux.doc(uid).set(map);
+  }
+
+  addMessage(String uid,Map<String,dynamic> map){
+    fire_message.doc(uid).set(map);
+  }
+
   updateUser(String uid, Map<String, dynamic> map) {
     fire_user.doc(uid).update(map);
   }
@@ -66,28 +75,6 @@ class FirestoreHelper {
     TaskSnapshot download =
         await firestorage.ref("cover/$nomImage").putData(data);
     return await download.ref.getDownloadURL();
-  }
-
-  Future createMorceau(
-      {required String title,
-      required String author,
-      required String song_path,
-      String? album_title,
-      String? image,
-      String? type}) async {
-    Map<String, dynamic> map = {
-      "TITLE": title,
-      "AUTHOR": author,
-      "SONG_PATH": song_path,
-      "ALBUM_TITLE": album_title,
-      "IMAGE": image,
-      "TYPE": type,
-    };
-    //addMorceau(map);
-  }
-
-  addMorceau(String uid,Map<String,dynamic> map){
-    fire_morceaux.doc(uid).set(map);
   }
 
   Future<String> stockageAudio(String nomAudio, Uint8List data) async {
