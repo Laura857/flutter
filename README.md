@@ -11,7 +11,13 @@ Cette application flutter avait pour but de découvrir le langage
 - Une page avec une liste de contact
 - Une page de chat
 
-## Lancer le projet
-Avoir l'application android studio
-[Avoir flutter d'installer](https://docs.flutter.dev/get-started/install)
-Une fois android studio ouvert, lancer les simulateur, puis lancer l'application
+## Pré-requis
+- Avoir l'application Android Studio
+- [Avoir Flutter d'installer](https://docs.flutter.dev/get-started/install)
+
+## Lancer l'application en local
+- Ouvrir Android Studio
+- Lancer le device manager pour avoir un simulateur
+- Dans les setting du projet, ajouter un SDK
+- Lancer le main.dart
+- L'application démarre dans le simulateur
