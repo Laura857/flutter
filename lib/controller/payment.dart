@@ -1,83 +1,96 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iim/functions/firestoreHelper.dart';
+import 'package:flutter_stripe_payment/flutter_stripe_payment.dart';
 
-import '../model/Users.dart';
-import '../view/chat.dart';
-
-class character extends StatefulWidget {
+class payment extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return characterState();
+    return paymentState();
   }
 }
 
-class characterState extends State<character> {
-  String uid = "";
+class paymentState extends State<payment> {
+  late String _paymentMethodId;
+  String _errorMessage = "";
+  final _stripePayment = FlutterStripePayment();
+  var _isNativePayAvailable = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _stripePayment.setStripeSettings(
+        "{STRIPE_PUBLISHABLE_KEY}", "{STRIPE_APPLE_PAY_MERCHANTID}");
+    _stripePayment.onCancel = () {
+      print("the payment form was cancelled");
+    };
+    checkIfAppleOrGooglePayIsAvailable();
+  }
+
+  void checkIfAppleOrGooglePayIsAvailable() async {
+    var available = await _stripePayment.isNativePayAvailable();
+    setState(() {
+      _isNativePayAvailable = available;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: bodyPage(),
-    );
-  }
-
-  Widget bodyPage() {
-    FirestoreHelper().getIdentifiant().then((value) {
-      uid = value;
-    });
-    return StreamBuilder<QuerySnapshot>(
-      //récupère tout ceux avec le mail
-      //stream: FirestoreHelper().fire_user.where("MAIL", isEqualTo: "test@gmail.com").snapshots(),
-      stream: FirestoreHelper().fire_user.snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Container(
-              height: 50, width: 50, child: CircularProgressIndicator());
-        }
-        List documents = snapshot.data!.docs;
-        return ListView.builder(
-            itemCount: documents.length,
-            itemBuilder: (context, index) {
-              Users utilsateur = Users(documents[index]);
-              if (utilsateur.id == uid) {
-                return Container();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        _paymentMethodId != null
+            ? Text(
+                "Payment Method Returned is $_paymentMethodId",
+                textAlign: TextAlign.center,
+              )
+            : Container(
+                child: Text(_errorMessage),
+              ),
+        ElevatedButton(
+          child: Text("Create a Card Payment Method"),
+          onPressed: () async {
+            var paymentResponse = await _stripePayment.addPaymentMethod();
+            setState(() {
+              if (paymentResponse.status == PaymentResponseStatus.succeeded) {
+                _paymentMethodId = paymentResponse.paymentMethodId!;
+              } else {
+                _errorMessage = paymentResponse.errorMessage!;
               }
-              return InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return chat(utilsateur);
-                    }));
-                  },
-                  child: Card(
-                    elevation: 5.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    color: Colors.white54,
-                    child: ListTile(
-                      leading: (utilsateur.image == null)
-                          ? CircleAvatar(
-                              radius: 30.0,
-                              backgroundImage: NetworkImage(
-                                  "https://firebasestorage.googleapis.com/v0/b/firstprojetimm.appspot.com/o/image_disponible.png?alt=media&token=809cfa6c-b1af-44e1-bd85-a12ae9ef0f39"),
-                              backgroundColor: Colors.transparent,
-                            )
-                          : CircleAvatar(
-                              radius: 30.0,
-                              backgroundImage: NetworkImage(utilsateur.image!),
-                              backgroundColor: Colors.transparent,
-                            ),
-                      title: Text("${utilsateur.prenom} ${utilsateur.nom}"),
-                      subtitle: Text("${utilsateur.mail}"),
-                    ),
-                  ));
             });
-      },
+          },
+        ),
+        ElevatedButton(
+          child: Text(
+              "Get ${Platform.isIOS ? "Apple" : (Platform.isAndroid ? "Google" : "Native")} Pay Token"),
+          onPressed: !_isNativePayAvailable
+              ? null
+              : () async {
+                  var paymentItem =
+                      PaymentItem(label: 'Air Jordan Kicks', amount: 249.99);
+                  var taxItem =
+                      PaymentItem(label: 'NY Sales Tax', amount: 21.87);
+                  var shippingItem =
+                      PaymentItem(label: 'Shipping', amount: 5.99);
+                  var stripeToken =
+                      await _stripePayment.getPaymentMethodFromNativePay(
+                          countryCode: "US",
+                          currencyCode: "USD",
+                          paymentNetworks: [
+                            PaymentNetwork.visa,
+                            PaymentNetwork.mastercard,
+                            PaymentNetwork.amex,
+                            PaymentNetwork.discover
+                          ],
+                          merchantName: "Nike Inc.",
+                          isPending: false,
+                          paymentItems: [paymentItem, shippingItem, taxItem]);
+                  print("Stripe Payment Token from Apple Pay: $stripeToken");
+                },
+        )
+      ],
     );
   }
 }

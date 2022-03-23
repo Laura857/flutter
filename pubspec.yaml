@@ -48,6 +48,7 @@ dependencies:
   geolocator: ^8.2.0
   dash_chat: ^1.1.16
   awesome_notifications: ^0.6.21
+  flutter_stripe_payment: ^0.0.17
 
 dev_dependencies:
   flutter_test:

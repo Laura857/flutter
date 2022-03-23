@@ -5,6 +5,7 @@ import 'package:flutter_iim/controller/allMorceaux.dart';
 import 'package:flutter_iim/controller/character.dart';
 
 import '../controller/addMorceau.dart';
+import '../controller/payment.dart';
 import 'Mydrawer.dart';
 
 class dashboard extends StatefulWidget {
@@ -21,7 +22,7 @@ class dashboard extends StatefulWidget {
 }
 
 class dashboardState extends State<dashboard> {
-  int currentIndex = 1;
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +64,9 @@ class dashboardState extends State<dashboard> {
               DotNavigationBarItem(
                 icon: Icon(Icons.map_sharp),
               ),
+              DotNavigationBarItem(
+                icon: Icon(Icons.payment),
+              ),
             ]));
   }
 
@@ -74,6 +78,8 @@ class dashboardState extends State<dashboard> {
         return character();
       case 2:
         return afficherCarte();
+      case 3:
+        return payment();
       default:
         return Text("Aucune info");
     }
