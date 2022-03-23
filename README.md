@@ -21,3 +21,6 @@ Cette application flutter avait pour but de découvrir le langage
 - Dans les setting du projet, ajouter un SDK
 - Lancer le main.dart
 - L'application démarre dans le simulateur
+
+## Ajouter des dépendence
+L'ajouter dans le fichier pubspec.yaml, puis faire un 'Pub get' pour prendre en compte les modifications
